@@ -9,7 +9,7 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      background: linear-gradient(to right, #a8ff78, #78ffd6); /* PARLAK YEŞİL GEÇİŞİ */
+      background: linear-gradient(to right, #a8ff78, #78ffd6);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -18,17 +18,16 @@
       font-family: 'Georgia', serif;
     }
 
-    /* Çubuk Adam */
     .stickman {
       position: absolute;
       bottom: 20px;
-      left: -100px;
+      left: -80px;
       width: 50px;
       height: 120px;
       animation: moveRight 8s forwards;
+      z-index: 1;
     }
 
-    /* Baş */
     .head {
       width: 30px;
       height: 30px;
@@ -38,7 +37,6 @@
       margin: 0 auto;
     }
 
-    /* Gövde */
     .body {
       width: 2px;
       height: 50px;
@@ -46,7 +44,6 @@
       margin: 0 auto;
     }
 
-    /* Kollar */
     .arms {
       width: 50px;
       height: 2px;
@@ -56,7 +53,7 @@
     }
 
     .arms::after {
-      content: "🌸"; /* Çiçek */
+      content: "🌸";
       position: absolute;
       right: -20px;
       top: -12px;
@@ -65,7 +62,6 @@
       animation: flowerWave 2s infinite;
     }
 
-    /* Bacaklar */
     .legs {
       width: 30px;
       height: 30px;
@@ -93,43 +89,40 @@
       transform: rotate(-20deg);
     }
 
-    /* Yürüme animasyonu */
     @keyframes moveRight {
-      0% { left: -100px; }
-      100% { left: 80px; }
+      0% { left: -80px; }
+      100% { left: 20px; }
     }
 
-    /* Çiçek sallama animasyonu */
     @keyframes flowerWave {
       0%, 100% { transform: rotate(-20deg); }
       50% { transform: rotate(20deg); }
     }
 
-    /* Mesaj Kutusu */
     .message-box {
-      background: rgba(255, 255, 255, 0.8);
-      padding: 30px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px 25px;
       border-radius: 20px;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-      max-width: 600px;
+      max-width: 90%;
       text-align: center;
       z-index: 2;
     }
 
     .message-box h1 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       color: #d81b60;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .message-box p {
-      font-size: 1.4rem;
-      line-height: 1.8;
+      font-size: 1.2rem;
+      line-height: 1.6;
       color: #880e4f;
     }
 
     .heart {
-      font-size: 3rem;
+      font-size: 2.5rem;
       margin-top: 20px;
       animation: pulse 1.5s infinite;
       color: #d32f2f;
@@ -138,6 +131,30 @@
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.2); }
+    }
+
+    /* Mobil uyum için */
+    @media (max-width: 600px) {
+      .message-box {
+        padding: 15px 20px;
+      }
+      .message-box h1 {
+        font-size: 1.5rem;
+      }
+      .message-box p {
+        font-size: 1rem;
+      }
+      .heart {
+        font-size: 2rem;
+      }
+      .stickman {
+        width: 40px;
+        height: 100px;
+        bottom: 10px;
+      }
+      .arms::after {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
