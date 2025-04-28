@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Çubuk Adam Özür Animasyonu 🌸</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(to right, #a8ff78, #78ffd6); /* PARLAK YEŞİL GEÇİŞİ */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      font-family: 'Georgia', serif;
+    }
+
+    /* Çubuk Adam */
+    .stickman {
+      position: absolute;
+      bottom: 20px;
+      left: -100px;
+      width: 50px;
+      height: 120px;
+      animation: moveRight 8s forwards;
+    }
+
+    /* Baş */
+    .head {
+      width: 30px;
+      height: 30px;
+      border: 2px solid #333;
+      border-radius: 50%;
+      background: white;
+      margin: 0 auto;
+    }
+
+    /* Gövde */
+    .body {
+      width: 2px;
+      height: 50px;
+      background: #333;
+      margin: 0 auto;
+    }
+
+    /* Kollar */
+    .arms {
+      width: 50px;
+      height: 2px;
+      background: #333;
+      margin: 10px auto;
+      position: relative;
+    }
+
+    .arms::after {
+      content: "🌸"; /* Çiçek */
+      position: absolute;
+      right: -20px;
+      top: -12px;
+      font-size: 1.5rem;
+      transform: rotate(-20deg);
+      animation: flowerWave 2s infinite;
+    }
+
+    /* Bacaklar */
+    .legs {
+      width: 30px;
+      height: 30px;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .legs::before,
+    .legs::after {
+      content: "";
+      position: absolute;
+      width: 2px;
+      height: 30px;
+      background: #333;
+      bottom: 0;
+    }
+
+    .legs::before {
+      left: 0;
+      transform: rotate(20deg);
+    }
+
+    .legs::after {
+      right: 0;
+      transform: rotate(-20deg);
+    }
+
+    /* Yürüme animasyonu */
+    @keyframes moveRight {
+      0% { left: -100px; }
+      100% { left: 80px; }
+    }
+
+    /* Çiçek sallama animasyonu */
+    @keyframes flowerWave {
+      0%, 100% { transform: rotate(-20deg); }
+      50% { transform: rotate(20deg); }
+    }
+
+    /* Mesaj Kutusu */
+    .message-box {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .message-box h1 {
+      font-size: 2.5rem;
+      color: #d81b60;
+      margin-bottom: 20px;
+    }
+
+    .message-box p {
+      font-size: 1.4rem;
+      line-height: 1.8;
+      color: #880e4f;
+    }
+
+    .heart {
+      font-size: 3rem;
+      margin-top: 20px;
+      animation: pulse 1.5s infinite;
+      color: #d32f2f;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="stickman">
+  <div class="head"></div>
+  <div class="body"></div>
+  <div class="arms"></div>
+  <div class="legs"></div>
+</div>
+
+<div class="message-box">
+  <h1>Özür Dilerim Birtanemmm 💔</h1>
+  <p>
+    Her insan bir gün oldurur sevdiğini<br><br>
+    Kimisi öpücükle kimisi de hançerleyerek...<br><br>
+    Ama bir de insanı her gün öldüren şeyler vardır. Kılıçtan keskin sözler, taştan sert davranışlar...  
+    Bunların tek ilacı ise kendini affettirebilmektir.<br><br>
+    Affet beni, derdimin dermanı, gönlümün aşk fermanı... ❤️
+  </p>
+  <div class="heart">💖</div>
+</div>
+
+</body>
+</html>
