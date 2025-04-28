@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kalp Kaçıyor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #ffe6f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      position: relative;
+    }
+    #heart {
+      font-size: 60px;
+      position: absolute;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+      display: none;
+    }
+    #message {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 32px;
+      color: #cc0052;
+      text-align: center;
+      padding: 20px;
+      max-width: 90%;
+      line-height: 1.5;
+    }
+    #questionArea {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 20px;
+    }
+    #lives {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20px;
+      color: #cc0052;
+      background-color: #ffe6f0;
+      padding: 5px 10px;
+      border-radius: 10px;
+    }
+    .btn {
+      padding: 10px 20px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .yes {
+      background-color: #ff4d88;
+      color: white;
+    }
+    .no {
+      background-color: #ffb3cc;
+      color: white;
+    }
+    .btn:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+<div id="lives">Kalan Hakkın: 10</div>
+<div id="message">Hazırlanıyor...</div>
+<div id="heart">❤️</div>
+
+<div id="questionArea" style="display: none;">
+  <button class="btn yes" id="yesButton">Tamam</button>
+  <button class="btn no" id="noButton">Hayır</button>
+</div>
+
+<script>
+  const heart = document.getElementById('heart');
+  const message = document.getElementById('message');
+  const questionArea = document.getElementById('questionArea');
+  const yesButton = document.getElementById('yesButton');
+  const noButton = document.getElementById('noButton');
+  const lives = document.getElementById('lives');
+  let tries = 10;
+  let caught = false;
+  let gameStarted = false;
+
+  const questions = [
+    "Şimdi bir oyun oynayacağız.Ben kazanırsam barışacağız sen kazanırsan ne istersen o tamam mı? ❤️",
+    "Bence  gayet guzel bir anlaşma oynamak istemediğine eminmisin? 💖",
+    "Kalbimdeki yara derin,barışmazsak nederim,o yuzden 1 elcik dene. 💘"
+  ];
+  const finalQuestion = "Kalbimi almaya hazır mısın? ❤️";
+  let questionIndex = 0;
+
+  function updateLives() {
+    lives.textContent = `Kalan Hakkın: ${tries}`;
+  }
+
+  function askQuestion() {
+    questionArea.style.display = 'flex';
+    if (questionIndex < questions.length) {
+      message.textContent = questions[questionIndex];
+      questionIndex++;
+    } else {
+      message.textContent = finalQuestion;
+    }
+  }
+
+  yesButton.addEventListener('click', () => {
+    startGame();
+  });
+
+  noButton.addEventListener('click', () => {
+    setTimeout(askQuestion, 300);
+    // HAYIR butonuna basınca can eksilmiyor!
+  });
+
+  function startGame() {
+    message.textContent = "Kalbi yakalamaya çalış!";
+    questionArea.style.display = 'none';
+    heart.style.display = 'block';
+    gameStarted = true;
+    moveHeart();
+  }
+
+  function moveHeart() {
+    const heartSize = 60;
+    const maxX = window.innerWidth - heartSize;
+    const maxY = window.innerHeight - heartSize;
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+    heart.style.left = randomX + 'px';
+    heart.style.top = randomY + 'px';
+  }
+
+  function escapeHeart(event) {
+    if (!caught) {
+      moveHeart();
+    }
+  }
+
+  heart.addEventListener('mouseenter', escapeHeart);
+  heart.addEventListener('touchstart', escapeHeart);
+
+  heart.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (caught) return;
+    caught = true;
+    message.textContent = "Kazandın! ❤️";
+    heart.style.cursor = "default";
+    heart.style.display = 'none';
+  });
+
+  function loseGame() {
+    heart.remove();
+    message.innerHTML = "Sanırım barıştık<br>Ayrıca benim kalbim senin zaten başkasını boşver  ❤️";
+  }
+
+  document.body.addEventListener('click', () => {
+    if (!gameStarted || caught) return;
+    tries--;
+    updateLives();
+    if (tries <= 0) {
+      loseGame();
+    }
+  });
+
+  document.body.addEventListener('touchstart', (e) => {
+    if (!gameStarted || caught) return;
+    if (e.target.id !== 'heart') {
+      tries--;
+      updateLives();
+      if (tries <= 0) {
+        loseGame();
+      }
+    }
+  });
+
+  // Oyun başlamadan önce soruları başlat
+  updateLives();
+  askQuestion();
+</script>
+
+</body>
+</html>
